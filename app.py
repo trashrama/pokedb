@@ -4,11 +4,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-def gravar(id, nome, alolan, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+# relacionamento evolucao
+# id do pokemon anterior, id do pokemon seguinte, e o tipo (level or * STONE) 
+# fazer na vdd uma tabela 
+
+def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
            sp_def, speed, specie, altura, peso, id_ev, level):
     f = open("pokedb_pokemons.txt", "a")
-    f.writelines('VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})\n'.format(
-        id, nome, alolan, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+    f.writelines('VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})\n'.format(
+        id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
         sp_def, speed, specie, altura, peso, id_ev, level))
     f.close()
 
@@ -50,8 +54,6 @@ for i in range(len(linhas)):
     col = linhas[i].find_elements(By.TAG_NAME, 'td')
     id = col[0].text
 
-    alolan = False
-
     try:
         nome = (col[1].text).split('\n')
         nome = nome[1]
@@ -60,175 +62,173 @@ for i in range(len(linhas)):
 
     print(nome)
 
-    if ("Alolan" in nome):
-        alolan = True
+    if not (("Alolan" in nome) or ("Mega" in nome)):
 
-    tipos = col[2].text
-    tipos = tipos.split("\n")
+        tipos = col[2].text
+        tipos = tipos.split("\n")
 
-    total = col[3].text
-    hp = col[4].text
-    attack = col[5].text
-    sp_atk = col[6].text
-    sp_def = col[7].text
-    speed = col[8].text
+        total = col[3].text
+        hp = col[4].text
+        attack = col[5].text
+        sp_atk = col[6].text
+        sp_def = col[7].text
+        speed = col[8].text
 
-    # novo codigo
-    link = col[1].find_element(By.TAG_NAME, 'a')
+        # novo codigo
+        link = col[1].find_element(By.TAG_NAME, 'a')
 
-    link.click()
+        link.click()
 
-    navegador.implicitly_wait(10)
+        navegador.implicitly_wait(10)
 
-    WebDriverWait(navegador, 10).until(
-        EC.presence_of_all_elements_located((By.XPATH, "(//div[@class='grid-col span-md-6 span-lg-4'])[1]")))
+        WebDriverWait(navegador, 10).until(
+            EC.presence_of_all_elements_located((By.XPATH, "(//div[@class='grid-col span-md-6 span-lg-4'])[1]")))
 
-    bloc = navegador.find_element(
-        By.XPATH, "(//div[@class='grid-col span-md-6 span-lg-4'])[1]")
+        bloc = navegador.find_element(
+            By.XPATH, "(//div[@class='grid-col span-md-6 span-lg-4'])[1]")
 
-    table_aleatoria = bloc.find_element(By.CLASS_NAME, 'vitals-table')
-    tabela_especies = table_aleatoria.find_element(By.XPATH, '(//tr)[3]')
-    trs = table_aleatoria.find_elements(By.TAG_NAME, 'td')
-    print(len(trs))
+        table_aleatoria = bloc.find_element(By.CLASS_NAME, 'vitals-table')
+        tabela_especies = table_aleatoria.find_element(By.XPATH, '(//tr)[3]')
+        trs = table_aleatoria.find_elements(By.TAG_NAME, 'td')
+        print(len(trs))
 
-    specie = trs[2].text.replace("Pokémon", "")
-    specie = specie[:-1]
-    print(specie)
-    altura = trs[3].text
-    print(altura)
+        specie = trs[2].text.replace("Pokémon", "")
+        specie = specie[:-1]
+        print(specie)
+        altura = trs[3].text
+        print(altura)
 
-    altura = altura[:altura.find("(") - 3]
+        altura = altura[:altura.find("(") - 3]
 
-    peso = trs[4].text
-    peso = peso[:peso.find("(")-4]
+        peso = trs[4].text
+        peso = peso[:peso.find("(")-4]
 
-    WebDriverWait(navegador, 10).until(
-        EC.presence_of_all_elements_located((By.TAG_NAME, 'a')))
+        WebDriverWait(navegador, 10).until(
+            EC.presence_of_all_elements_located((By.TAG_NAME, 'a')))
 
-    habilidade = trs[5].find_element(By.CLASS_NAME, "text-muted")
-    habilidade = habilidade.find_element(By.TAG_NAME, "a")
-    habilidade = habilidade.text
-    print(habilidade)
+        habilidade = trs[5].find_element(By.CLASS_NAME, "text-muted")
+        habilidade = habilidade.find_element(By.TAG_NAME, "a")
+        habilidade = habilidade.text
+        print(habilidade)
 
-    lista_efetividade = []
+        lista_efetividade = []
 
-    tabela_fraq = navegador.find_element(By.XPATH,
-                                         "(//tr)[24]")
+        tabela_fraq = navegador.find_element(By.XPATH,
+                                            "(//tr)[24]")
 
-    WebDriverWait(navegador, 10).until(
-        EC.presence_of_all_elements_located((By.TAG_NAME, 'td')))
-    el_tbfq = tabela_fraq.find_elements(By.TAG_NAME, 'td')
+        WebDriverWait(navegador, 10).until(
+            EC.presence_of_all_elements_located((By.TAG_NAME, 'td')))
+        el_tbfq = tabela_fraq.find_elements(By.TAG_NAME, 'td')
 
-    for el in el_tbfq:
-        print(el.text)
-        if ((el.text) == "" or (el.text == "0")):
-            lista_efetividade.append(0)
-        elif (el.text == "½"):
-            lista_efetividade.append(1/2)
-        elif (el.text == "¼"):
-            lista_efetividade.append(1/4)
-        elif (el.text == "2"):
-            lista_efetividade.append(2)
-        elif (el.text == "4"):
-            lista_efetividade.append(4)
-        elif (el.text == "⅛	"):
-            lista_efetividade.append(1/8)
-    tabela_fraq = navegador.find_element(By.XPATH,
-                                         "(//tr)[26]")
-    el_tbfq = tabela_fraq.find_elements(By.TAG_NAME, 'td')
+        for el in el_tbfq:
+            print(el.text)
+            if ((el.text) == "" or (el.text == "0")):
+                lista_efetividade.append(0)
+            elif (el.text == "½"):
+                lista_efetividade.append(1/2)
+            elif (el.text == "¼"):
+                lista_efetividade.append(1/4)
+            elif (el.text == "2"):
+                lista_efetividade.append(2)
+            elif (el.text == "4"):
+                lista_efetividade.append(4)
+            elif (el.text == "⅛	"):
+                lista_efetividade.append(1/8)
+        tabela_fraq = navegador.find_element(By.XPATH,
+                                            "(//tr)[26]")
+        el_tbfq = tabela_fraq.find_elements(By.TAG_NAME, 'td')
 
-    for el in el_tbfq:
-        print(el.text)
-        if ((el.text) == "" or (el.text == "0")):
-            lista_efetividade.append(0)
-        elif (el.text == "½"):
-            lista_efetividade.append(1/2)
-        elif (el.text == "¼"):
-            lista_efetividade.append(1/4)
-        elif (el.text == "2"):
-            lista_efetividade.append(2)
-        elif (el.text == "4"):
-            lista_efetividade.append(4)
-        elif (el.text == "⅛"):
-            lista_efetividade.append(1/8)
+        for el in el_tbfq:
+            print(el.text)
+            if ((el.text) == "" or (el.text == "0")):
+                lista_efetividade.append(0)
+            elif (el.text == "½"):
+                lista_efetividade.append(1/2)
+            elif (el.text == "¼"):
+                lista_efetividade.append(1/4)
+            elif (el.text == "2"):
+                lista_efetividade.append(2)
+            elif (el.text == "4"):
+                lista_efetividade.append(4)
+            elif (el.text == "⅛"):
+                lista_efetividade.append(1/8)
 
-    try:
-        evo_card = navegador.find_element(By.CLASS_NAME, 'infocard-list-evo')
-        level_ev = evo_card.find_elements(
-            By.CLASS_NAME, 'infocard-arrow')
-        divs = evo_card.find_elements(By.TAG_NAME, 'div')
+        try:
+            evo_card = navegador.find_element(By.CLASS_NAME, 'infocard-list-evo')
+            level_ev = evo_card.find_elements(
+                By.CLASS_NAME, 'infocard-arrow')
+            divs = evo_card.find_elements(By.TAG_NAME, 'div')
 
-        for index, div in enumerate(divs):
-            spans = div.find_elements(By.TAG_NAME, 'span')
-            num = spans[2].find_element(By.TAG_NAME, 'small')
-            num = num.text
+            for index, div in enumerate(divs):
+                spans = div.find_elements(By.TAG_NAME, 'span')
+                num = spans[2].find_element(By.TAG_NAME, 'small')
+                num = num.text
 
+                level = "NULL"
+                id_ev = ""
+
+                num = num[1:]
+
+                if (num == id and index != 0):
+
+                    try:
+                        id_ev = divs[index+1]
+                        id_ev = id_ev.find_elements(By.TAG_NAME, 'small')
+                        id_ev = id_ev[0].text
+                    except:
+                        id_ev = "NULL"
+
+                    try:
+                        level = level_ev[index-1].text
+                    except:
+                        level = "NULL"
+
+                    break
+                elif (num == id and index == 0):
+                    try:
+                        id_ev = divs[index+1]
+                        id_ev = id_ev.find_elements(By.TAG_NAME, 'small')
+                        id_ev = id_ev[0].text
+                    except:
+                        id_ev = "NULL"
+                        nivel_evolucao = "NULL"
+                    break
+        except:
+            id_ev = "NULL"
             level = "NULL"
-            id_ev = ""
 
-            num = num[1:]
+        if (level != "NULL"):
+            if not (level.isnumeric()):
+                level = level[level.find("("):level.find(")")]
+                level = level.upper()
+            level = level[level.find(" ")+1: -1]
 
-            if (num == id and index != 0):
+        if id_ev != "NULL":
+            id_ev = id_ev[1:]
 
-                try:
-                    id_ev = divs[index+1]
-                    id_ev = id_ev.find_elements(By.TAG_NAME, 'small')
-                    id_ev = id_ev[0].text
-                except:
-                    id_ev = "NULL"
-
-                try:
-                    level = level_ev[index-1].text
-                except:
-                    level = "NULL"
-
-                break
-            elif (num == id and index == 0):
-                try:
-                    id_ev = divs[index+1]
-                    id_ev = id_ev.find_elements(By.TAG_NAME, 'small')
-                    id_ev = id_ev[0].text
-                except:
-                    id_ev = "NULL"
-                    nivel_evolucao = "NULL"
-                break
-    except:
-        id_ev = "NULL"
-        level = "NULL"
-
-    if (level != "NULL"):
-        if not (level.isnumeric()):
-            level = level[level.find("("):level.find(")")]
-            level = level.upper()
-        level = level[level.find(" ")+1: -1]
-
-    if id_ev != "NULL":
-        id_ev = id_ev[1:]
-
-    print("num: " + num)
-    print("id_evo: "+id_ev)
-    print("n.E: "+level)
+        print("num: " + num)
+        print("id_evo: "+id_ev)
+        print("n.E: "+level)
 
 
-# nivel q vai evoluir
+    # nivel q vai evoluir
 
-    print(lista_efetividade)
-    navVoltou = True
-    navegador.back()
+        print(lista_efetividade)
+        navVoltou = True
+        navegador.back()
 
-    tipo1 = tipos[0]
+        tipo1 = tipos[0]
 
-    try:
-        tipo2 = tipos[1]
-    except:
-        tipo2 = "NULL"
+        try:
+            tipo2 = tipos[1]
+        except:
+            tipo2 = "NULL"
 
-    print(habilidade)
-    print(alolan)
-    gravar(id, nome, alolan, tipo1, tipo2, habilidade, hp, attack, sp_atk,
-           sp_def, speed, specie, altura, peso, id_ev, level)
+        print(habilidade)
+        gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+            sp_def, speed, specie, altura, peso, id_ev, level)
 
-    gravarFraquezas(id, lista_efetividade[0], lista_efetividade[1], lista_efetividade[2], lista_efetividade[3], lista_efetividade[4], lista_efetividade[5], lista_efetividade[6],
-                    lista_efetividade[7], lista_efetividade[8], lista_efetividade[9], lista_efetividade[10], lista_efetividade[11], lista_efetividade[12], lista_efetividade[13], lista_efetividade[14], lista_efetividade[15], lista_efetividade[16], lista_efetividade[17])
+        gravarFraquezas(id, lista_efetividade[0], lista_efetividade[1], lista_efetividade[2], lista_efetividade[3], lista_efetividade[4], lista_efetividade[5], lista_efetividade[6],
+                        lista_efetividade[7], lista_efetividade[8], lista_efetividade[9], lista_efetividade[10], lista_efetividade[11], lista_efetividade[12], lista_efetividade[13], lista_efetividade[14], lista_efetividade[15], lista_efetividade[16], lista_efetividade[17])
 
-    lista_efetividade = []
+        lista_efetividade = []

@@ -149,6 +149,8 @@ for i in range(len(linhas)):
             lista_efetividade.append(2)
         elif (el.text == "4"):
             lista_efetividade.append(4)
+        elif (el.text == "⅛"):
+            lista_efetividade.append(1/8)
 
     try:
         evo_card = navegador.find_element(By.CLASS_NAME, 'infocard-list-evo')

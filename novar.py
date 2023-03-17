@@ -6,22 +6,22 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 def gravarFraquezas(tipo, atk, defesa):
 
-    f = open("pokedb_stats_{}_.txt".format(tipo), "a")
-    f.writelines('-- {}\n'.format(tipo))
+    f = open("pokedb_stats_fraqdef.txt".format(tipo), "a")
+    f1 = open("pokedb_stats_fraqatq.txt".format(tipo), "a")
 
-    f.write('VALUES (')
-    for i, item in enumerate(atk):
-        if (i == len(atk)):
-            f.writelines("{})".format(item))
-        f.write("{}, ".format(item))
-    f.write('VALUES (')
+    print("'{}',".format(tipo))
 
-    for i, item in enumerate(defesa):
-        if (i == len(defesa)):
-            f.writelines("{})".format(item))
-        f.write("{}, ".format(item))
+    f.writelines("CREATE TABLE {}_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)\n".format(tipo))
+
+    f.writelines("('{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),\n".format(tipo,
+                 atk[0], atk[1], atk[2], atk[3], atk[4], atk[5], atk[6], atk[7], atk[8], atk[9], atk[10], atk[11], atk[12], atk[13], atk[14], atk[15], atk[16], atk[17]))
+
+    f1.writelines("CREATE TABLE {}_def(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float, )\n".format(tipo))
+    f1.writelines("('{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),\n".format(tipo, defesa[0], defesa[1], defesa[2], defesa[3], defesa[
+                  4], defesa[5], defesa[6], defesa[7], defesa[8], defesa[9], defesa[10], defesa[11], defesa[12], defesa[13], defesa[14], defesa[15], defesa[16], defesa[17]))
 
     f.close()
+    f1.close()
 
 
 def bayCity(el, ini, fim, pulo=1):
@@ -129,21 +129,21 @@ aco_atk, ini_atk = bayCity(el, ini_atk, fim_atk, pulo_atk)
 fada_def, ini_def, fim_def = bayCity(el, ini_def, fim_def)
 fada_atk, ini_atk = bayCity(el, ini_atk, fim_atk, pulo_atk)
 
-gravarFraquezas('normal', normal_atk, normal_def)
-gravarFraquezas('fogo', fogo_atk, fogo_def)
-gravarFraquezas('agua', agua_atk, agua_def)
-gravarFraquezas('eletrico', eletrico_atk, eletrico_def)
-gravarFraquezas('grama', grama_atk, grama_def)
-gravarFraquezas('gelo', gelo_atk, gelo_def)
-gravarFraquezas('lutador', lutador_atk, lutador_def)
-gravarFraquezas('venenoso', venenoso_atk, venenoso_def)
-gravarFraquezas('terra', terra_atk, terra_def)
-gravarFraquezas('voador', voador_atk, voador_def)
-gravarFraquezas('psiquico', psiquico_atk, psiquico_def)
-gravarFraquezas('inseto', inseto_atk, inseto_def)
-gravarFraquezas('pedra', pedra_atk, pedra_def)
-gravarFraquezas('fantasma', fantasma_atk, fantasma_def)
-gravarFraquezas('dragao', dragao_atk, dragao_def)
-gravarFraquezas('noturno', noturno_atk, noturno_def)
-gravarFraquezas('aco', aco_atk, aco_def)
-gravarFraquezas('fada', fada_atk, fada_def)
+gravarFraquezas('Normal', normal_atk, normal_def)
+gravarFraquezas('Fire', fogo_atk, fogo_def)
+gravarFraquezas('Water', agua_atk, agua_def)
+gravarFraquezas('Eletric', eletrico_atk, eletrico_def)
+gravarFraquezas('Grass', grama_atk, grama_def)
+gravarFraquezas('Ice', gelo_atk, gelo_def)
+gravarFraquezas('Fighting', lutador_atk, lutador_def)
+gravarFraquezas('Poison', venenoso_atk, venenoso_def)
+gravarFraquezas('Ground', terra_atk, terra_def)
+gravarFraquezas('Flying', voador_atk, voador_def)
+gravarFraquezas('Psychic', psiquico_atk, psiquico_def)
+gravarFraquezas('Bug', inseto_atk, inseto_def)
+gravarFraquezas('Rock', pedra_atk, pedra_def)
+gravarFraquezas('Ghost', fantasma_atk, fantasma_def)
+gravarFraquezas('Dragon', dragao_atk, dragao_def)
+gravarFraquezas('Dark', noturno_atk, noturno_def)
+gravarFraquezas('Steel', aco_atk, aco_def)
+gravarFraquezas('Fairy', fada_atk, fada_def)

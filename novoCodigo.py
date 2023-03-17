@@ -1,15 +1,107 @@
 import requests
+from random import randint
 from bs4 import BeautifulSoup
 
-for i in range(1, 151):
+
+def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+           sp_def, speed, bufunfa, specie, altura, peso):
+
+    lista_tipos = ['Normal',
+                   'Fire',
+                   'Water',
+                   'Electric',
+                   'Grass',
+                   'Ice',
+                   'Fighting',
+                   'Poison',
+                   'Ground',
+                   'Flying',
+                   'Psychic',
+                   'Bug',
+                   'Rock',
+                   'Ghost',
+                   'Dragon',
+                   'Dark',
+                   'Steel',
+                   'Fairy']
+
+    f = open("pokedb_pokemons.txt", "a")
+
+    for i in range(len(lista_tipos)):
+        if (lista_tipos[i] == tipo1):
+            tipo1_id = i+1
+            break
+    for i in range(len(lista_tipos)):
+        if (lista_tipos[i] == tipo2):
+            tipo2_id = i+1
+            break
+
+    if tipo2 != "NULL":
+        f.writelines("('{}', {}, {}, '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}, {}),\n".format(
+            nome, tipo1_id, tipo2_id, habilidade, hp, attack, sp_atk,
+            sp_def, speed, bufunfa, specie, altura, peso, randint(0, 100)))
+    else:
+        f.writelines("('{}', {}, NULL, '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}, {}),\n".format(
+            nome, tipo1_id, habilidade, hp, attack, sp_atk,
+            sp_def, speed, bufunfa, specie, altura, peso, randint(0, 100)))
+    f.close()
+
+
+def gravarLugares(id_pokemon, jogo, lugares):
+    f = open("pokedb_lugares.txt", "a")
+
+    try:
+        lugares = lugares.split(",")
+        primeiro = True
+        for i in range(len(lugares)):
+            if (lugares[i])[0] == " ":
+                lugares[i] = (lugares[i])[1:]
+
+            if ("Route" in lugares[0] and len(lugares) > 1):
+                if primeiro:
+                    primeiro = False
+                else:
+                    if len(lugares[i]) <= 2:
+                        lugares[i] = "Route " + lugares[i]
+            if "Trade/migrate" in lugares[i] or "Evolve" in lugares[i]:
+                pass
+            else:
+                f.writelines("({}, '{}', '{}'),\n".format(
+                    id_pokemon, jogo.upper().replace("'", "''"), lugares[i].upper().replace("'", "''")))
+
+    except:
+        if (lugares[i])[0] == " ":
+            lugares[i] = (lugares[i])[1:]
+        if "Trade/migrate" in lugares[i] or "Evolve" in lugares[i]:
+            pass
+        else:
+            f.writelines("({}, '{}', '{}'),\n".format(
+                id_pokemon, jogo.upper(), lugares[i].upper()))
+
+    f.close()
+
+
+def gravarEvo(id_pokemon, id_prox, tipo):
+    f = open("pokedb_evolucoes.txt", "a")
+    if not (id_prox == 'NULL' and tipo == 'NULL' or id_pokemon == id_prox):
+        try:
+            if (int(id_prox) < 151):
+                f.writelines("({}, {}, '{}'),\n".format(
+                    id_pokemon, id_prox, tipo.replace("(", "").replace(")", "")))
+        except:
+            f.writelines("({}, {}, '{}'),\n".format(
+                id_pokemon, id_prox, tipo.replace("(", "").replace(")", "")))
+    f.close()
+
+
+for i in range(1, 152):
 
     page = requests.get("https://pokemondb.net/pokedex/{}".format(i))
     soup = BeautifulSoup(page.content, 'html.parser')
 
-    regiao = "Kanto"
     # nome do pokemon
 
-    nome = soup.find("h1").text
+    nome = (soup.find("h1").text).replace("'", "''")
     print(nome)
 
     tabela = soup.find_all('table', class_="vitals-table")
@@ -19,8 +111,13 @@ for i in range(1, 151):
     id_pokemon = linhas_info[0].find("strong").text
     # tipo do pokemon
     tipos = linhas_info[1].find_all('a')
-    for tipo in tipos:
-        print(tipo.text)
+    if (len(tipos) == 2):
+        tipo1 = tipos[0].text
+        tipo2 = tipos[1].text
+    else:
+        tipo1 = tipos[0].text
+        tipo2 = "NULL"
+
     # especie
     especie = linhas_info[2].find("td").text.replace(" Pokémon", "")
     print(especie)
@@ -54,6 +151,8 @@ for i in range(1, 151):
         nivel_ev = cards.find_all(class_="infocard infocard-arrow")
 
         for i in range(len(total_ev)):
+            modoDoido = False
+
             num = total_ev[i].find("small").text
             num = num.replace("#", "")
 
@@ -62,12 +161,20 @@ for i in range(1, 151):
 
             if (num == id_pokemon and i != 0):
                 try:
-                    id_ev = total_ev[i+1].find("small").text
-                    id_ev = id_ev.replace("#", "")
+                    if not ("#" in total_ev[i+1].find("small").text or id == 102 or id == 104 or id == 109 or id == 79 or id == 123 or id == 133):
+                        id_ev = total_ev[i+2].find("small").text
+                        id_ev = id_ev.replace("#", "")
+                        modoDoido = True
+                    else:
+                        id_ev = total_ev[i+1].find("small").text
+                        id_ev = id_ev.replace("#", "")
                 except:
                     id_ev = "NULL"
                 try:
-                    tipo_ev = nivel_ev[i-1].text
+                    if modoDoido:
+                        tipo_ev = nivel_ev[i-1].text.replace("#", "")
+                    else:
+                        tipo_ev = nivel_ev[i].text.replace("#", "")
                 except:
                     tipo_ev = "NULL"
                 break
@@ -75,16 +182,20 @@ for i in range(1, 151):
             elif (num == id_pokemon and i == 0):
                 try:
                     id_ant = "NULL"
-                    id_ev = total_ev[i+1].find("small").text
+                    id_ev = total_ev[i+1].find("small").text.replace("#", "")
                 except:
                     id_ev = "NULL"
-                    nivel_evolucao = "NULL"
+                try:
+                    tipo_ev = nivel_ev[i].text
+                except:
+                    tipo_ev = "NULL"
                 break
             if (num != id):
                 id_ant = num
     except:
         id_ev = "NULL"
         id_ant = "NULL"
+        tipo_ev = "NULL"
 
     print("num: " + id_pokemon)
     print("id_evo: "+id_ev)
@@ -118,3 +229,13 @@ for i in range(1, 151):
     print("onde encontrar red: " + red)
     print("onde encontrar blue: " + blue)
     print("onde encontrar yellow: " + yellow)
+
+    gravar(id_pokemon, nome, tipo1, tipo2, hab,
+           status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso)
+
+    gravarLugares(id_pokemon, "Red", red)
+    gravarLugares(id_pokemon, "Blue", blue)
+    gravarLugares(id_pokemon, "Yellow", yellow)
+
+    gravarEvo(id_pokemon, id_ev.replace("#", '').replace(
+        "use ", ""), tipo_ev.replace("use ", ""))

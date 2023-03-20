@@ -1,108 +1,18 @@
-CREATE TABLE Normal_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Normal', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
-CREATE TABLE Fire_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fire', 1, 0.5, 2, 1, 0.5, 0.5, 1, 1, 2, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 0.5),
-CREATE TABLE Water_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Water', 1, 0.5, 0.5, 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Eletric_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Eletric', 1, 1, 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Grass_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Grass', 1, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 2, 1, 2, 1, 1, 1, 1, 1, 1),
-CREATE TABLE Ice_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ice', 1, 2, 1, 1, 1, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1),
-CREATE TABLE Fighting_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fighting', 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 0.5, 1, 1, 0.5, 1, 2),
-CREATE TABLE Poison_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Poison', 1, 1, 1, 1, 0.5, 1, 0.5, 0.5, 2, 1, 2, 0.5, 1, 1, 1, 1, 1, 0.5),
-CREATE TABLE Ground_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ground', 1, 1, 2, 0, 2, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1),
-CREATE TABLE Flying_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Flying', 1, 1, 1, 2, 0.5, 2, 0.5, 1, 0, 1, 1, 0.5, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Psychic_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Psychic', 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 2, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Bug_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Bug', 1, 2, 1, 1, 0.5, 1, 0.5, 1, 0.5, 2, 1, 1, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Rock_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Rock', 0.5, 0.5, 2, 1, 2, 1, 2, 0.5, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 1),
-CREATE TABLE Ghost_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ghost', 0, 1, 1, 1, 1, 1, 0, 0.5, 1, 1, 1, 0.5, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Dragon_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dragon', 1, 0.5, 0.5, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2),
-CREATE TABLE Dark_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dark', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 2, 1, 0.5, 1, 0.5, 1, 2),
-CREATE TABLE Steel_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Steel', 0.5, 2, 1, 1, 0.5, 0.5, 2, 0, 2, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 1, 0.5, 0.5),
-CREATE TABLE Fairy_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fairy', 1, 1, 1, 1, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 1, 1, 0, 0.5, 2, 1),
-CREATE TABLE Normal_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Normal', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
-CREATE TABLE Fire_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fire', 1, 0.5, 2, 1, 0.5, 0.5, 1, 1, 2, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 0.5),
-CREATE TABLE Water_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Water', 1, 0.5, 0.5, 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Eletric_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Eletric', 1, 1, 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Grass_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Grass', 1, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 2, 1, 2, 1, 1, 1, 1, 1, 1),
-CREATE TABLE Ice_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ice', 1, 2, 1, 1, 1, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1),
-CREATE TABLE Fighting_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fighting', 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 0.5, 1, 1, 0.5, 1, 2),
-CREATE TABLE Poison_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Poison', 1, 1, 1, 1, 0.5, 1, 0.5, 0.5, 2, 1, 2, 0.5, 1, 1, 1, 1, 1, 0.5),
-CREATE TABLE Ground_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ground', 1, 1, 2, 0, 2, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1),
-CREATE TABLE Flying_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Flying', 1, 1, 1, 2, 0.5, 2, 0.5, 1, 0, 1, 1, 0.5, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Psychic_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Psychic', 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 2, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Bug_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Bug', 1, 2, 1, 1, 0.5, 1, 0.5, 1, 0.5, 2, 1, 1, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Rock_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Rock', 0.5, 0.5, 2, 1, 2, 1, 2, 0.5, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 1),
-CREATE TABLE Ghost_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ghost', 0, 1, 1, 1, 1, 1, 0, 0.5, 1, 1, 1, 0.5, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Dragon_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dragon', 1, 0.5, 0.5, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2),
-CREATE TABLE Dark_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dark', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 2, 1, 0.5, 1, 0.5, 1, 2),
-CREATE TABLE Steel_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Steel', 0.5, 2, 1, 1, 0.5, 0.5, 2, 0, 2, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 1, 0.5, 0.5),
-CREATE TABLE Fairy_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fairy', 1, 1, 1, 1, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 1, 1, 0, 0.5, 2, 1),
-CREATE TABLE Normal_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Normal', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
-CREATE TABLE Fire_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fire', 1, 0.5, 2, 1, 0.5, 0.5, 1, 1, 2, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 0.5),
-CREATE TABLE Water_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Water', 1, 0.5, 0.5, 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Eletric_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Eletric', 1, 1, 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 0.5, 1),
-CREATE TABLE Grass_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Grass', 1, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 2, 1, 2, 1, 1, 1, 1, 1, 1),
-CREATE TABLE Ice_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ice', 1, 2, 1, 1, 1, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1),
-CREATE TABLE Fighting_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fighting', 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 0.5, 1, 1, 0.5, 1, 2),
-CREATE TABLE Poison_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Poison', 1, 1, 1, 1, 0.5, 1, 0.5, 0.5, 2, 1, 2, 0.5, 1, 1, 1, 1, 1, 0.5),
-CREATE TABLE Ground_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ground', 1, 1, 2, 0, 2, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1),
-CREATE TABLE Flying_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Flying', 1, 1, 1, 2, 0.5, 2, 0.5, 1, 0, 1, 1, 0.5, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Psychic_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Psychic', 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 2, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Bug_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Bug', 1, 2, 1, 1, 0.5, 1, 0.5, 1, 0.5, 2, 1, 1, 2, 1, 1, 1, 1, 1),
-CREATE TABLE Rock_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Rock', 0.5, 0.5, 2, 1, 2, 1, 2, 0.5, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 1),
-CREATE TABLE Ghost_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Ghost', 0, 1, 1, 1, 1, 1, 0, 0.5, 1, 1, 1, 0.5, 1, 2, 1, 2, 1, 1),
-CREATE TABLE Dragon_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dragon', 1, 0.5, 0.5, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2),
-CREATE TABLE Dark_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Dark', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 2, 1, 0.5, 1, 0.5, 1, 2),
-CREATE TABLE Steel_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Steel', 0.5, 2, 1, 1, 0.5, 0.5, 2, 0, 2, 0.5, 0.5, 0.5, 0.5, 1, 0.5, 1, 0.5, 0.5),
-CREATE TABLE Fairy_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)
-('Fairy', 1, 1, 1, 1, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 1, 1, 0, 0.5, 2, 1),
+('1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1),
+('2', 1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1),
+('3', 1, 2, 0.5, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 1, 1, 1),
+('4', 1, 1, 2, 0.5, 0.5, 1, 1, 1, 0, 2, 1, 1, 1, 1, 0.5, 1, 1, 1),
+('5', 1, 0.5, 2, 1, 0.5, 1, 1, 0.5, 2, 0.5, 1, 0.5, 2, 1, 0.5, 1, 0.5, 1),
+('6', 1, 0.5, 0.5, 1, 2, 0.5, 1, 1, 2, 2, 1, 1, 1, 1, 2, 1, 0.5, 1),
+('7', 2, 1, 1, 1, 1, 2, 1, 0.5, 1, 0.5, 0.5, 0.5, 2, 0, 1, 2, 2, 0.5),
+('8', 1, 1, 1, 1, 2, 1, 1, 0.5, 0.5, 1, 1, 1, 0.5, 0.5, 1, 1, 0, 2),
+('9', 1, 2, 1, 2, 0.5, 1, 1, 2, 1, 0, 1, 0.5, 2, 1, 1, 1, 2, 1),
+('10', 1, 1, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 0.5, 1),
+('11', 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0.5, 1, 1, 1, 1, 0, 0.5, 1),
+('12', 1, 0.5, 1, 1, 2, 1, 0.5, 0.5, 1, 0.5, 2, 1, 1, 0.5, 1, 2, 0.5, 0.5),
+('13', 1, 2, 1, 1, 1, 2, 0.5, 1, 0.5, 2, 1, 2, 1, 1, 1, 1, 0.5, 1),
+('14', 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 1),
+('15', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 0.5, 0),
+('16', 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 2, 1, 1, 2, 1, 0.5, 1, 0.5),
+('17', 1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2),
+('18', 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1),

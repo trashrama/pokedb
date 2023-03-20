@@ -130,8 +130,10 @@ create table ginasio (id_ginasio serial not null primary key unique,
   				foreign key (id_treinador) references treinador(id_treinador),
   				foreign key (insignia) references ginasio(insignia));
 create table treinador_inv(id serial not null primary key,
-                          id_item int not null,
+                          id_item int not null unique,
+                          qtde_item int not null default 1 check (qtde_item>0),
                           id_item_chave int,
+                          qtde_item_chave int unique check (qtde_item>0),
                            -- como varchar pra ficar mais facil de registrar ao inves do id
                           lugar varchar(50) not null,
                           foreign key (id_item) references item(id_item),

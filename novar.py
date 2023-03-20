@@ -4,19 +4,39 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-def gravarFraquezas(tipo, atk, defesa):
+def gravarFraquezas(nome, atk, defesa):
 
-    f = open("pokedb_stats_fraqdef.txt".format(tipo), "a")
-    f1 = open("pokedb_stats_fraqatq.txt".format(tipo), "a")
+    f = open("pokedb_stats_fraqatq.txt", "a")
+    f1 = open("pokedb_stats_fraqdef.txt", "a")
 
-    print("'{}',".format(tipo))
+    lista_tipos = ['Normal',
+                   'Fire',
+                   'Water',
+                   'Electric',
+                   'Grass',
+                   'Ice',
+                   'Fighting',
+                   'Poison',
+                   'Ground',
+                   'Flying',
+                   'Psychic',
+                   'Bug',
+                   'Rock',
+                   'Ghost',
+                   'Dragon',
+                   'Dark',
+                   'Steel',
+                   'Fairy']
 
-    f.writelines("CREATE TABLE {}_atq(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float,)\n".format(tipo))
+    for i in range(len(lista_tipos)):
+        print(lista_tipos[i], nome)
+        if (lista_tipos[i] == nome):
+            tipo = i+1
+            break
 
     f.writelines("('{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),\n".format(tipo,
                  atk[0], atk[1], atk[2], atk[3], atk[4], atk[5], atk[6], atk[7], atk[8], atk[9], atk[10], atk[11], atk[12], atk[13], atk[14], atk[15], atk[16], atk[17]))
 
-    f1.writelines("CREATE TABLE {}_def(nome_tipo varchar(30), Normal float,Fire float, Water float, Electric float,Grass float, Ice float, Fighting float,  Poison float, Ground float, Flying float, Psychic float, Bug float, Rock float, Ghost float, Dragon float, Dark float, Steel float, Fairy float, )\n".format(tipo))
     f1.writelines("('{}', {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),\n".format(tipo, defesa[0], defesa[1], defesa[2], defesa[3], defesa[
                   4], defesa[5], defesa[6], defesa[7], defesa[8], defesa[9], defesa[10], defesa[11], defesa[12], defesa[13], defesa[14], defesa[15], defesa[16], defesa[17]))
 
@@ -132,7 +152,7 @@ fada_atk, ini_atk = bayCity(el, ini_atk, fim_atk, pulo_atk)
 gravarFraquezas('Normal', normal_atk, normal_def)
 gravarFraquezas('Fire', fogo_atk, fogo_def)
 gravarFraquezas('Water', agua_atk, agua_def)
-gravarFraquezas('Eletric', eletrico_atk, eletrico_def)
+gravarFraquezas('Electric', eletrico_atk, eletrico_def)
 gravarFraquezas('Grass', grama_atk, grama_def)
 gravarFraquezas('Ice', gelo_atk, gelo_def)
 gravarFraquezas('Fighting', lutador_atk, lutador_def)

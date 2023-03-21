@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 
 def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
-           sp_def, speed, bufunfa, specie, altura, peso):
+           sp_def, speed, bufunfa, specie, altura, peso, cidade):
 
     lista_tipos = ['Normal',
                    'Fire',
@@ -36,13 +36,13 @@ def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
             break
 
     if tipo2 != "NULL":
-        f.writelines("('{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
+        f.writelines("('{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}, '{}'),\n".format(
             nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
-            sp_def, speed, bufunfa, specie, altura, peso))
+            sp_def, speed, bufunfa, specie, altura, peso, cidade))
     else:
-        f.writelines("('{}', '{}', NULL, '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
+        f.writelines("('{}', '{}', NULL, '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}, '{}'),\n".format(
             nome, tipo1, habilidade, hp, attack, sp_atk,
-            sp_def, speed, bufunfa, specie, altura, peso))
+            sp_def, speed, bufunfa, specie, altura, peso, cidade))
     f.close()
 
 
@@ -103,10 +103,17 @@ def gravarEvo(id_pokemon, id_prox, tipo):
     f.close()
 
 
-for i in range(102, 379):
+for i in range(1, 379):
 
     page = requests.get("https://pokemondb.net/pokedex/{}".format(i))
     soup = BeautifulSoup(page.content, 'html.parser')
+
+    if (i < 152):
+        cidade = 'KANTO'
+    elif (i >= 152 and i < 252):
+        cidade = 'JOHTO'
+    else:
+        cidade = 'HOENN'
 
     # nome do pokemon
 
@@ -265,7 +272,7 @@ for i in range(102, 379):
     print("onde encontrar yellow: " + yellow)
 
     gravar(id_pokemon, nome, tipo1, tipo2, hab,
-           status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso)
+           status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso, cidade)
 
     gravarLugares(id_pokemon, "Red", red)
     gravarLugares(id_pokemon, "Blue", blue)

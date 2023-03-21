@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
+lista_banidos = [133, 290, 366, 281, 61, 44, 79, 236, 265]
+lista_semEv = [45, 62, 80, 106, 107, 199, 133, 134, 135, 136, 182, 186, 196, 197, 237, 291, 292, 367, 368, 282, 362]
 
 
 def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
@@ -92,6 +94,11 @@ def gravarLugares(id_pokemon, jogo, lugares):
 
 def gravarEvo(id_pokemon, id_prox, tipo):
     f = open("pokedb_evolucoes.txt", "a")
+
+    if('Stone' in tipo and ',' in tipo):
+        tipo = tipo.split(",")
+        tipo = tipo[0]
+    
     if not (id_prox == 'NULL' and tipo == 'NULL' or id_pokemon == id_prox):
         try:
             if (int(id_prox) < 151):
@@ -103,7 +110,7 @@ def gravarEvo(id_pokemon, id_prox, tipo):
     f.close()
 
 
-for i in range(1, 379):
+for i in range(12, 379):
 
     page = requests.get("https://pokemondb.net/pokedex/{}".format(i))
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -161,50 +168,63 @@ for i in range(1, 379):
     id_ev = ""
     tipo_ev = ""
 
-    try:
-        cards = soup.find(class_="infocard-list-evo")
-        total_ev = cards.find_all("div")
+    broken = 0
+    if (id_pokemon not in lista_banidos):
         try:
-            spansdivididos = soup.find(class_='infocard-evo-split')
-            print(spansdivididos)
+            cards = soup.find(class_="infocard-list-evo")
+            total_ev = cards.find_all("div")
+            try:
+                spansdivididos = soup.find(class_='infocard-evo-split')
+            except:
+                print("Não tem spans.")
+            nivel_ev = cards.find_all(class_="infocard-arrow")
+
+            for i in range(len(total_ev)):
+                num = total_ev[i].find('span', class_="infocard-lg-data")
+                num = num.find("small").text
+                num = num.replace("#", "")
+
+                if (num == id_pokemon and i != 0):
+                    try:
+                        id_ev = total_ev[i+1].find('span',
+                                                {'class': ["infocard-lg-data", 'text-muted']})
+                        id_ev = id_ev.find("small").text.replace("#", "")
+                        broken = i
+                    except:
+                        id_ev = 'NULL'
+                    try:
+                        
+                        tipo_ev = nivel_ev[i].text
+                    except:
+                        tipo_ev = "NULL"
+                        break
+                elif (num == id_pokemon and i == 0):
+                    try:
+                        id_ev = total_ev[i +
+                                        1].find('span', {'class': ["infocard-lg-data", 'text-muted']})
+                        id_ev = total_ev[i+1].find("small").text.replace("#", "")
+
+                    except:
+                        id_ev = "NULL"
+                    try:
+                        tipo_ev = nivel_ev[i].text
+                    except:
+                        tipo_ev = "NULL"
+                        break
         except:
-            print("Não tem spans.")
-        nivel_ev = cards.find_all(class_="infocard-arrow")
+            id_ev = "NULL"
+            id_ant = "NULL"
+            tipo_ev = "NULL"
 
-        for i in range(len(total_ev)):
-            num = total_ev[i].find('span', class_="infocard-lg-data")
-            num = num.find("small").text
-            num = num.replace("#", "")
+    if (id_ev in lista_semEv) or (id_ev == id_pokemon):
+        id_ev = 'NULL'
+        # cards = soup.find(class_="infocard-list-evo")
 
-            if (num == id_pokemon and i != 0):
-                try:
-                    id_ev = total_ev[i+1].find('span',
-                                               {'class': ["infocard-lg-data", 'text-muted']})
-                    id_ev = id_ev.find("small").text.replace("#", "")
-                except:
-                    id_ev = 'NULL'
-                try:
-                    tipo_ev = nivel_ev[i].text
-                    print(tipo_ev)
-                except:
-                    tipo_ev = "NULL"
-                    break
-            elif (num == id_pokemon and i == 0):
-                try:
-                    id_ev = total_ev[i +
-                                     1].find('span', {'class': ["infocard-lg-data", 'text-muted']}).text()
-                    id_ev = total_ev[i+1].find("small").text.replace("#", "")
-                except:
-                    id_ev = "NULL"
-                try:
-                    tipo_ev = nivel_ev[i].text
-                except:
-                    tipo_ev = "NULL"
-                    break
-    except:
-        id_ev = "NULL"
-        id_ant = "NULL"
+        # nivel_ev = cards.find_all(class_="infocard-arrow")
+
+        # tipo_ev = nivel_ev[broken-1].text
         tipo_ev = "NULL"
+    id_ev = id_ev.replace("\n", "")
 
     print("num: " + id_pokemon)
     print("id_evo: "+id_ev)
@@ -238,38 +258,6 @@ for i in range(1, 379):
     print("onde encontrar blue: " + blue)
     print("onde encontrar yellow: " + yellow)
 
-    print("num: " + id_pokemon)
-    print("id_evo: "+id_ev)
-    print("id_evo: "+id_ant)
-    print("n.E: "+tipo_ev)
-
-    string = soup.find(
-        text=lambda text: text and 'Where to find' in text).parent
-    proximo = string.find_next_sibling()
-
-    onde_encontrar = proximo.find_all("tr")
-
-    jogos = onde_encontrar[0].find_all("th")
-    jogos = jogos[0].find_all("span")
-
-    red = ""
-    blue = ""
-    yellow = ""
-
-    if (len(jogos) == 2):
-        for i in range(0, 2):
-            find = onde_encontrar[i].find_all("td")
-            if (i == 0):
-                red, blue = find[0].text, find[0].text
-            else:
-                yellow = find[0].text
-    else:
-        find = onde_encontrar[i].find_all("td")
-        red, blue, yellow = find[0].text, find[0].text, find[0].text
-
-    print("onde encontrar red: " + red)
-    print("onde encontrar blue: " + blue)
-    print("onde encontrar yellow: " + yellow)
 
     gravar(id_pokemon, nome, tipo1, tipo2, hab,
            status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso, cidade)

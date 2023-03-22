@@ -1,64 +1,26 @@
-import requests
-from bs4 import BeautifulSoup
 
-try:
-    cards = soup.find(class_="infocard-list-evo")
-    total_ev = cards.find_all("div")
-    nivel_ev = cards.find_all(class_="infocard infocard-arrow")
+lista = [
+    (25, 26, 'Thunder Stone'),
+    (30, 31, 'Moon Stone'),
+    (33, 34, 'Moon Stone'),
+    (35, 36, 'Moon Stone'),
+    (37, 38, 'Fire Stone'),
+    (39, 40, 'Moon Stone'),
+    (044, 045, 'Leaf Stone'),
+    (058, 059, 'Fire Stone'),
+    (061, 062, 'Water Stone'),
+    (070, 071, 'Leaf Stone'),
+    (090, 091, 'Water Stone'),
+    (0102, 0103, 'Leaf Stone'),
+    (0120, 0121, 'Water Stone'),
+    (0133, 0134, 'Water Stone'),
+    (0133, 0135, 'Thunder Stone'),
+    (0133, 0136, 'Fire Stone'),
+    (0191, 0192, 'Sun Stone'),
+    (0271, 0272, 'Water Stone'),
+    (0274, 0275, 'Leaf Stone'),
+    (0300, 0301, 'Moon Stone')
+]
 
-    for i in range(len(total_ev)):
-
-        num = total_ev[i].find("small").text
-        num = num.replace("#", "")
-
-        if (i == 0):
-            id_ant = "NULL"
-
-        if (num == id_pokemon and i != 0):
-            try:
-                if not ("#" in total_ev[i+1].find("small").text or id == 102 or id == 104 or id == 109 or id == 79 or id == 123 or id == 133):
-                    id_ev = total_ev[i+2].find("small").text
-                    id_ev = id_ev.replace("#", "")
-                else:
-                    id_ev = total_ev[i+1].find("small").text
-                    id_ev = id_ev.replace("#", "")
-            except:
-                id_ev = "NULL"
-            try:
-                if modoDoido:
-                    tipo_ev = nivel_ev[i-1].text.replace("#", "")
-                else:
-                    tipo_ev = nivel_ev[i].text.replace("#", "")
-            except:
-                tipo_ev = "NULL"
-            break
-
-        elif (num == id_pokemon and i == 0):
-            try:
-                id_ant = "NULL"
-                id_ev = total_ev[i+1].find("small").text.replace("#", "")
-            except:
-                id_ev = "NULL"
-            try:
-                tipo_ev = nivel_ev[i].text
-            except:
-                tipo_ev = "NULL"
-            break
-        if (num != id):
-            id_ant = num
-except:
-    id_ev = "NULL"
-    id_ant = "NULL"
-    tipo_ev = "NULL"
-
-for i in range(105, 152):
-
-    page = requests.get("https://pokemondb.net/pokedex/{}".format(i))
-    soup = BeautifulSoup(page.content, 'html.parser')
-
-    cards = soup.find(class_="infocard-list-evo")
-    elementos = cards.find_all('span')
-    for i in range(len(elementos)):
-
-        if 'infocard-evo-split' in elementos[i]['class']:
-            print(elementos[i].text)
+for id1, id2, pedra in lista:
+    print(f"({id1}, {id2}, 'STONE', '{pedra}'),")

@@ -1,6 +1,7 @@
 drop table if exists item CASCADE;
 drop table if exists regiao CASCADE;
 drop table if exists key_item CASCADE;
+drop table if exists liga CASCADE;
 drop table if exists pokemon_lugar CASCADE;
 drop table if exists lugar CASCADE;
 drop table if exists pokemon cascade;
@@ -126,6 +127,36 @@ create table ginasio (id_ginasio serial not null primary key unique,
                      foreign key (id_lider) references treinador(id_treinador),
                      foreign key (tipo) references tipo(nome)
                      );
+create table liga (id serial primary key not null,
+                     lugar varchar(30) unique not null,
+                     id_elite4_1 int not null,
+                     tipo_elite4_1 varchar(30),
+                     id_elite4_2 int not null,
+                     tipo_elite4_2 varchar(30),
+                     id_elite4_3 int not null,
+                     tipo_elite4_3 varchar(30),
+                     id_elite4_4 int not null,
+                     tipo_elite4_4 varchar(30),
+                     id_campeao int not null,
+                     tipo_campeao varchar(30),
+                   
+                   	 foreign key (lugar) references lugar(nome),
+                   	 foreign key (id_elite4_1) references treinador(id_treinador),
+                     foreign key (id_elite4_2) references treinador(id_treinador),
+                   	 foreign key (id_elite4_3) references treinador(id_treinador),
+                   	 foreign key (id_elite4_4) references treinador(id_treinador),
+                     foreign key (id_campeao) references treinador(id_treinador),
+
+                   	 foreign key (tipo_elite4_1) references tipo(nome),
+                     foreign key (tipo_elite4_2) references tipo(nome),
+                   	 foreign key (tipo_elite4_3) references tipo(nome),
+                   	 foreign key (tipo_elite4_4) references tipo(nome),
+                   	 foreign key (tipo_campeao) references tipo(nome)
+
+          
+
+            
+                   );
                                
 --madanicos de shibuya (sant, sant & sant)
 
@@ -4794,7 +4825,21 @@ values ('Brock', '1/01/1999', 'M', 'BROWN', 1.70, 'Pewter City'),
 ('Winona', '8/21/2001', 'F', 'BLUE', 1.54, 'Fortree City'),
 ('Tate', '8/21/2001', 'F', 'BLACK', 1.70, 'Mossdeep City'),
 ('Liza', '8/21/2001', 'F', 'BLACK', 1.62, 'Mossdeep City'),
-('Wallace', '4/24/2001', 'M', 'BLUE', 1.69, 'Sootopolis City');
+('Wallace', '4/24/2001', 'M', 'BLUE', 1.69, 'Sootopolis City'),
+('Lorelei', '12/1/1987', 'F', 'BROWN', 1.50, 'Route 23'),
+('Bruno', '5/23/1996', 'M', 'BROWN', 1.51, 'Route 23'),
+('Agatha', '2/20/1993', 'F', 'GREEN', 1.50, 'Route 23'),
+('Lance', '2/21/1989', 'M', 'BLUE', 1.55, 'Route 23'),
+('Will', '3/15/1995', 'M', 'BROWN', 1.65, 'Indigo Plateau'),
+('Koga', '1/5/1998', 'M', 'BLUE', 1.65, 'Indigo Plateau'),
+('Karen', '1/2/1990', 'F', 'GREEN', 1.56, 'Indigo Plateau'),
+('Sidney', '1/24/1993', 'M', 'BLUE', 1.57, 'Ever Grande City'),
+('Phoebe', '2/5/1998', 'M', 'GREEN', 1.52, 'Ever Grande City'),
+('Glacia', '2/27/2000', 'M', 'BROWN', 1.60, 'Ever Grande City'),
+('Drake', '7/23/1987', 'M', 'GREEN', 1.70, 'Ever Grande City'),
+('Blue', '8/9/1982', 'M', 'BLACK', 1.61, 'Route 23'),
+('Lance', '8/30/1983', 'M', 'BLACK', 1.67, 'Indigo Plateau'),
+('Wallace', '8/15/1992', 'M', 'BLUE', 1.54, 'Ever Grande City');
 
 insert into treinador_pokemons(id_treinador, id_pokemon, lvl_pokemon)
 VALUES (1, 0074, 'Level 12'),
@@ -4870,7 +4915,80 @@ VALUES (1, 0074, 'Level 12'),
 (25, 0340, 'Level 42'),
 (25, 0364, 'Level 40'),
 (25, 0119, 'Level 42'),
-(25, 0350, 'Level 43');
+(25, 0350, 'Level 43'),
+(26, 0087, 'Level 54'),
+(26, 0091, 'Level 53'),
+(26, 0080, 'Level 54'),
+(26, 0124, 'Level 56'),
+(26, 0131, 'Level 56'),
+(27, 0095, 'Level 53'),
+(27, 0107, 'Level 55'),
+(27, 0106, 'Level 55'),
+(27, 0095, 'Level 56'),
+(27, 0068, 'Level 58'),
+(28, 0094, 'Level 56'),
+(28, 0042, 'Level 56'),
+(28, 0093, 'Level 55'),
+(28, 0024, 'Level 58'),
+(28, 0094, 'Level 60'),
+(29, 0130, 'Level 58'),
+(29, 0148, 'Level 56'),
+(29, 0148, 'Level 56'),
+(29, 0142, 'Level 60'),
+(29, 0149, 'Level 62'),
+(30, 0178, 'Level 40'),
+(30, 0124, 'Level 41'),
+(30, 0080, 'Level 41'),
+(30, 0103, 'Level 41'),
+(30, 0178, 'Level 42'),
+(31, 0168, 'Level 40'),
+(31, 0049, 'Level 41'),
+(31, 0205, 'Level 43'),
+(31, 0089, 'Level 42'),
+(31, 0169, 'Level 44'),
+(32, 0197, 'Level 42'),
+(32, 0045, 'Level 42'),
+(32, 0198, 'Level 44'),
+(32, 0094, 'Level 45'),
+(32, 0229, 'Level 47'),
+(33, 0262, 'Level 46'),
+(33, 0332, 'Level 46'),
+(33, 0275, 'Level 48'),
+(33, 0342, 'Level 48'),
+(33, 0359, 'Level 49'),
+(34, 0356, 'Level 48'),
+(34, 0354, 'Level 49'),
+(34, 0354, 'Level 49'),
+(34, 0302, 'Level 50'),
+(34, 0356, 'Level 51'),
+(35, 0362, 'Level 50'),
+(35, 0364, 'Level 50'),
+(35, 0362, 'Level 52'),
+(35, 0364, 'Level 52'),
+(35, 0365, 'Level 53'),
+(36, 0372, 'Level 52'),
+(36, 0334, 'Level 54'),
+(36, 0230, 'Level 53'),
+(36, 0330, 'Level 53'),
+(36, 0373, 'Level 55'),
+(37, 0018, 'Level 61'),
+(37, 0065, 'Level 59'),
+(37, 0112, 'Level 61'),
+(37, 0103, 'Level 61'),
+(37, 0130, 'Level 63'),
+(37, 0006, 'Level 65'),
+(38, 0130, 'Level 44'),
+(38, 0149, 'Level 47'),
+(38, 0006, 'Level 46'),
+(38, 0142, 'Level 46'),
+(38, 0149, 'Level 47'),
+(38, 0149, 'Level 50'),
+(39, 0321, 'Level 57'),
+(39, 0073, 'Level 55'),
+(39, 0340, 'Level 56'),
+(39, 0272, 'Level 56'),
+(39, 0130, 'Level 56'),
+(39, 0350, 'Level 58');
 
 insert into ginasio(id_lider, insignia, cidade, tipo)
 values (1, 'Boulder Badge', 'Pewter City', 'Rock'),
@@ -4898,3 +5016,7 @@ values (1, 'Boulder Badge', 'Pewter City', 'Rock'),
 (25, 'Rain Badge', 'Sootopolis City', 'Water');
 
 insert into ginasio(id_lider, id_lider_sec, insignia, cidade, tipo) values (23, 24, 'Mind Badge', 'Mossdeep City', 'Psychic');
+insert into liga(lugar, id_elite4_1, tipo_elite4_1, id_elite4_2, tipo_elite4_2, id_elite4_3, tipo_elite4_3, id_elite4_4, tipo_elite4_4, id_campeao, tipo_campeao)
+values ('Route 23', 27, 'Ice', 28, 'Fighting', 29, 'Ghost', 30, 'Dragon', 37, NULL),
+('Indigo Plateau', 31, 'Psychic', 32, 'Poison', 28, 'Fighting', 34, 'Dark', 38, 'Dragon'),
+('Ever Grande City', 35, 'Dark', 36, 'Ghost', 37, 'Ice', 38, 'Dragon', 39, 'Water');

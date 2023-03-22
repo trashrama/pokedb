@@ -2,74 +2,90 @@ import requests
 from bs4 import BeautifulSoup
 from random import randint
 
+# create table liga (id serial primary key, 
+#                    id_lugar int unique,
+#                   )
+                  
+# create table liga_treinadores(id_treinador primary key unique,
+#                               id_liga int, 
+#                               foreign key (id_treinador) references treinador(id);
+# )
 
 # def gravarGinasios(int):
 
-page = requests.get("https://pokemondb.net/ruby-sapphire/gymleaders-elitefour")
-soup = BeautifulSoup(page.content, 'html.parser')
-id = 17
 
-for i in range(0, 5):
-    ginasios = soup.find(id="elite4-{}".format(i+1)).text
+lista = ['red-blue', 'gold-silver', 'emerald']
+for i in range(len(lista)):
+    page = requests.get(f"https://pokemondb.net/{lista[i]}/gymleaders-elitefour")
+    soup = BeautifulSoup(page.content, 'html.parser')
+    id = 25
+    if i == 0:
+        lugar = "Route 23"
+    elif 
 
-    ginasios = soup.find_all('div', {'class': 'infocard-list-trainer-pkmn'})
-    nome_lider = ginasios[i].find('span', {'class': 'ent-name'}).text
+    for i in range(8, 15):
 
-    smalls = ginasios[i].find_all('small')
-    small = smalls[0].text
-    insignia = small[:small.find("Badge")+5]
-    tipo_pokemon = (small[small.find("Badge")+6:]
-                    ).replace("type Pokémon", "").strip()
-    pokemons_lider = []
+        if i >= 8 and i <12:
+            ginasios = soup.find(id="elite4-{}".format(i-7)).text
 
-    for i in range(1, len(smalls)):
-        if "#" in smalls[i].text:
-            idpoke = smalls[i].text.replace("#", "")
-        if "Level" in smalls[i].text:
-            pokemons_lider.append([idpoke, smalls[i].text.replace("#", "")])
-    # print("termino")
-    # print(id)
-    print(nome_lider)
-    #print(lugar)
-    # print(insignia)
-    print(tipo_pokemon)
-    print(pokemons_lider)
+            ginasios = soup.find_all('div', {'class': 'infocard-list-trainer-pkmn'})
+            nome_lider = ginasios[i].find('span', {'class': 'ent-name'}).text
 
-    # passo 1 criar as entradas pra treinador dos lideres do ginasio
-    # passo 2 criar as entradas para os pokemons dos lideres dos ginasios
-    # passo 3 criar os ginasios
-    if (id == 17) or id == 20 or id == 22 or id == 23:
-        sex = 'F'
-    else:
-        sex = 'M'
+            smalls = ginasios[i].find_all('small')
+            small = smalls[0].text
+            insignia = small[:small.find("Badge")+5]
+            tipo_pokemon = (small[small.find("Badge")+6:]
+                            ).replace("type Pokémon", "").strip()
+            pokemons_lider = []
 
-    cor_olhos = ['BLACK', 'BROWN', 'BLUE', 'GREEN']
+            for i in range(1, len(smalls)):
+                if "#" in smalls[i].text:
+                    idpoke = smalls[i].text.replace("#", "")
+                if "Level" in smalls[i].text:
+                    pokemons_lider.append([idpoke, smalls[i].text.replace("#", "")])
+            # print("termino")
+            # print(id)
+            #print(nome_lider)
+            #print(lugar)
+            # print(insignia)
+            #print(tipo_pokemon)
+            #print(pokemons_lider)
 
-    dia = randint(1, 31)
-    mes = randint(1, 12)
-    ano = randint(1980, 2005)
 
-    if ("&" in nome_lider):
-        nome_lider = nome_lider.split("&")
-        for nome in nome_lider:
-            print("('{}', '{}', '{}', '{}', 1.{}, '{}'),".format(nome.strip(),
-                                                                 data, sex, cor_olhos[randint(0, len(cor_olhos)-1)], randint(50, 70), lugar))
+            # passo 1 criar as entradas pra treinador dos lideres do ginasio
+            # passo 2 criar as entradas para os pokemons dos lideres dos ginasios
+            # passo 3 criar os ginasios
+            if (id == 17) or id == 20 or id == 22 or id == 23:
+                sex = 'F'
+            else:
+                sex = 'M'
 
-    else:
-        data = f'{mes}/{dia}/{ano}'
-        imprimir treinadores
-        print("('{}', '{}', '{}', '{}', 1.{}, '{}'),".format(nome_lider,
-                                                             data, sex, cor_olhos[randint(0, len(cor_olhos)-1)], randint(50, 70), lugar))
+            cor_olhos = ['BLACK', 'BROWN', 'BLUE', 'GREEN']
 
-    # imprimir pokemons
-    # for pokemon in pokemons_lider:
-    #     print("({}, {}, '{}'),".format(
-    #         id, pokemon[0], pokemon[1]))
+            dia = randint(1, 31)
+            mes = randint(1, 12)
+            ano = randint(1980, 2005)
 
-    # imprimir ginasios
+            if ("&" in nome_lider):
+                nome_lider = nome_lider.split("&")
+                for nome in nome_lider:
+                    print("('{}', '{}', '{}', '{}', 1.{}, '{}'),".format(nome.strip(),
+                                                                        data, sex, cor_olhos[randint(0, len(cor_olhos)-1)], randint(50, 70), lugar))
 
-    lugar = "Route 23"
-    print("({}, '{}', '{}', '{}'),".format(
-        id, insignia, lugar, tipo_pokemon))
+            else:
+                data = f'{mes}/{dia}/{ano}'
+                #imprimir treinadores
+                print("('{}', '{}', '{}', '{}', 1.{}, '{}'),".format(nome_lider,
+                                                                    data, sex, cor_olhos[randint(0, len(cor_olhos)-1)], randint(50, 70), lugar))
 
-    id = id + 1
+            # imprimir pokemons
+            # for pokemon in pokemons_lider:
+            #     print("({}, {}, '{}'),".format(
+            #         id, pokemon[0], pokemon[1]))
+
+            # imprimir ginasios
+
+            # print("({}, '{}', '{}', '{}'),".format(
+            #     id, insignia, lugar, tipo_pokemon))
+
+            id = id + 1

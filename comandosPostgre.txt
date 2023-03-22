@@ -160,7 +160,7 @@ create table evolucao(
                       );
                       
                       
-CREATE TABLE EFETIVIDADE_ATQ(id_tipo int primary key not null unique,  
+CREATE TABLE efetividade_atq(id_tipo int primary key not null unique,  
                              Normal float not null,
 Fire float not null,
 Water float not null,
@@ -181,7 +181,7 @@ Steel float not null,
 Fairy float not null,
 FOREIGN key (id_tipo) REFERENCES tipo(id));
 
-CREATE TABLE EFETIVIDADE_DEF(id_tipo int primary key null unique, 
+CREATE TABLE efetividade_def(id_tipo int primary key null unique, 
                              Normal float,
 Fire float not null,
 Water float not null,

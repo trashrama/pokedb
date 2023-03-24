@@ -1,3 +1,6 @@
+# 1. refazer tabela de pokemons sem habilidades
+# 2. fazer a tabela de habilidades de cada pokemon
+
 import requests
 from bs4 import BeautifulSoup
 lista_banidos = [133, 290, 366, 281, 61, 44, 79, 236, 265]
@@ -5,7 +8,36 @@ lista_semEv = [45, 62, 80, 106, 107, 199, 133, 134, 135, 136,
                182, 186, 196, 197, 237, 291, 292, 367, 368, 282, 362]
 
 
-def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+def gravarHabs(i, mov, level):
+    f = open("habs.txt", 'a')
+    f.writelines(f"({i}, '{mov}', {level}),\n")
+
+    f.close()
+
+
+def gravarMov(i, mov, level, by):
+    f = open("mov.txt", "a")
+    if (level.isnumeric()):
+        level = f"Level {level}"
+
+    # print('shangs')
+    mov_aux = []
+    index = 0
+    for j, char in enumerate(mov):
+        if char.isupper() and j > 0 and (mov[j-1] != '-' and mov[j-1] != ' '):
+            mov_aux.append(mov[:j])
+            index = j
+    mov_aux.append(mov[index:])
+    mov = " ".join(mov_aux)
+    if not (level == "NULL"):
+        f.writelines(f"({i}, '{mov}', '{level}', '{by}'),\n")
+    else:
+        f.writelines(f"({i}, '{mov}', {level}, '{by}'),\n")
+
+    f.close()
+
+
+def gravar(id, nome, tipo1, tipo2, hp, attack, sp_atk,
            sp_def, speed, bufunfa, specie, altura, peso, cidade):
 
     lista_tipos = ['Normal',
@@ -39,12 +71,12 @@ def gravar(id, nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
             break
 
     if tipo2 != "NULL":
-        f.writelines("('{}', '{}', '{}', '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
-            nome, tipo1, tipo2, habilidade, hp, attack, sp_atk,
+        f.writelines("('{}', '{}', '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
+            nome, tipo1, tipo2, hp, attack, sp_atk,
             sp_def, speed, bufunfa, specie, altura, peso))
     else:
-        f.writelines("('{}', '{}', NULL, '{}', {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
-            nome, tipo1, habilidade, hp, attack, sp_atk,
+        f.writelines("('{}', '{}', NULL, {}, {}, {}, {}, {}, {}, '{}', {}, {}),\n".format(
+            nome, tipo1, hp, attack, sp_atk,
             sp_def, speed, bufunfa, specie, altura, peso))
     f.close()
 
@@ -294,7 +326,7 @@ def gravarLugares(id_pokemon, jogo, lugares, cidade):
 
     try:
         lugares = lugares.split(",")
-        print(lugares)
+        # print(lugares)
         primeiro = True
         for i in range(len(lugares)):
             if (lugares[i])[0] == " ":
@@ -359,15 +391,57 @@ for i in range(1, 387):
 
     if (i < 152):
         cidade = 'KANTO'
+        ger = 1
     elif (i >= 152 and i < 252):
         cidade = 'JOHTO'
+        ger = 2
     else:
         cidade = 'HOENN'
+        ger = 3
+
+    movimentosSite = requests.get(
+        "https://pokemondb.net/pokedex/{}/moves/{}".format(i, ger))
+
+    # print(f"https://pokemondb.net/pokedex/{i}/moves/{ger}")
+    soup2 = BeautifulSoup(movimentosSite.content, 'html.parser')
+
+    try:
+        tabelas = soup2.find(id=f"tab-moves-{ger}")
+        moves = tabelas.find_all("h3")
+    except:
+        tabelas = soup2.find(id=f"tab-moves-{ger+2}")
+        moves = tabelas.find_all("h3")
+
+    tabelas = tabelas.find_all("tbody")
+
+    for j in range(len(tabelas)):
+        tr = tabelas[j].find_all("tr")
+        for linha in tr:
+            by = moves[j]
+            aux = ((by.find_next()).find_next()).find_next()
+            if not (aux.find("table") == None):
+                if not ("move parents" in by):
+                    by = by.text
+                    tds = linha.find_all("td")
+                    if not ('Egg' in by or 'Pre-evolution' in by):
+                        level = tds[0].text
+                        mov = tds[1].text
+                    else:
+                        level = "0"
+                        mov = tds[0].text
+
+                if not (mov.isnumeric()):
+                    if (by[0] == 'M'):
+                        by = by.replace("Moves learnt by ", "")
+                    else:
+                        by = by.replace(" moves", "")
+
+                    # gravarMov(i, mov, level, by.upper())
 
     # nome do pokemon
 
     nome = (soup.find("h1").text).replace("'", "''")
-    print(nome)
+    # print(nome)
 
     tabela = soup.find_all('table', class_="vitals-table")
     linhas_info = tabela[0].find_all('tr')
@@ -385,17 +459,25 @@ for i in range(1, 387):
 
     # especie
     especie = linhas_info[2].find("td").text.replace(" Pokémon", "")
-    print(especie)
+    # print(especie)
     # altura
     altura = linhas_info[3].find("td").text
     altura = altura[:altura.find("m")-1]
-    print(altura)
+   # print(altura)
     # peso
     peso = linhas_info[4].find("td").text
     peso = peso[:peso.find("k")-1]
     # habilidades
-    hab = linhas_info[5].find("a").text
-    print(hab)
+    hab = soup.find("th", text="Abilities")
+    hab = hab.find_next()
+    lista_hab = hab.find_all("span")
+    print(lista_hab)
+
+    for inn in range(len(lista_hab)):
+        trewe = lista_hab[inn].text
+        print("https://pokemondb.net/pokedex/{}/moves/{}".format(i, ger))
+        trewe = trewe[trewe.find(".")+2:]
+        gravarHabs(id_pokemon, trewe, inn+1)
 
     # status
     linhas_stats = tabela[3].find_all("tr")
@@ -472,9 +554,9 @@ for i in range(1, 387):
         pass
     id_ev = id_ev.replace("\n", "")
 
-    print("num: " + id_pokemon)
-    print("id_evo: "+id_ev)
-    print("n.E: "+tipo_ev)
+    # print("num: " + id_pokemon)
+   # print("id_evo: "+id_ev)
+   # print("n.E: "+tipo_ev)
 
     string = soup.find(
         text=lambda text: text and 'Where to find' in text).parent
@@ -497,12 +579,12 @@ for i in range(1, 387):
     #     find = onde_encontrar[i].find_all("td")
     #     jogo1, jogo2, jogo3 = find[0].text, find[0].text, find[0].text
 
-    print("onde encontrar red: " + jogo1)
-    print("onde encontrar blue: " + jogo2)
-    print("onde encontrar yellow: " + jogo3)
+    # print("onde encontrar red: " + jogo1)
+   # print("onde encontrar blue: " + jogo2)
+    # print("onde encontrar yellow: " + jogo3)
 
-    # gravar(id_pokemon, nome, tipo1, tipo2, hab,
-    #        status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso, cidade)
+    # gravar(id_pokemon, nome, tipo1, tipo2,
+    #       status[0], status[1], status[2], status[3], status[4], status[5], especie, altura, peso, cidade)
 
     if (int(id_pokemon) < 152):
 
@@ -523,11 +605,11 @@ for i in range(1, 387):
         cidade_blue = onde_encontrar[pos_blue].find('td').text
         cidade_yellow = onde_encontrar[pos_yellow].find('td').text
 
-        print(cidade_red, cidade_blue, cidade_yellow)
+        # print(cidade_red, cidade_blue, cidade_yellow)
 
-        gravarLugares(id_pokemon, "Red", cidade_red, cidade)
-        gravarLugares(id_pokemon, "Blue", cidade_blue, cidade)
-        gravarLugares(id_pokemon, "Yellow", cidade_yellow, cidade)
+        # gravarLugares(id_pokemon, "Red", cidade_red, cidade)
+        # gravarLugares(id_pokemon, "Blue", cidade_blue, cidade)
+        # gravarLugares(id_pokemon, "Yellow", cidade_yellow, cidade)
     elif (int(id_pokemon) >= 152 and int(id_pokemon) < 252):
 
         for i in range(len(onde_encontrar)):
@@ -547,9 +629,9 @@ for i in range(1, 387):
         cidade_silver = onde_encontrar[pos_silver].find('td').text
         cidade_crystal = onde_encontrar[pos_crystal].find('td').text
 
-        gravarLugares(id_pokemon, "Gold", cidade_gold, cidade)
-        gravarLugares(id_pokemon, "Silver", cidade_silver, cidade)
-        gravarLugares(id_pokemon, "Crystal", cidade_crystal, cidade)
+        # gravarLugares(id_pokemon, "Gold", cidade_gold, cidade)
+        # gravarLugares(id_pokemon, "Silver", cidade_silver, cidade)
+        # gravarLugares(id_pokemon, "Crystal", cidade_crystal, cidade)
     else:
 
         for i in range(len(onde_encontrar)):
@@ -569,9 +651,9 @@ for i in range(1, 387):
         cidade_sap = onde_encontrar[pos_sapp].find('td').text
         cidade_em = onde_encontrar[pos_em].find('td').text
 
-        gravarLugares(id_pokemon, "Ruby", cidade_ruby, cidade)
-        gravarLugares(id_pokemon, "Sapphire", cidade_sap, cidade)
-        gravarLugares(id_pokemon, "Emerald", cidade_em, cidade)
+        # gravarLugares(id_pokemon, "Ruby", cidade_ruby, cidade)
+        # gravarLugares(id_pokemon, "Sapphire", cidade_sap, cidade)
+        # gravarLugares(id_pokemon, "Emerald", cidade_em, cidade)
 
     # gravarEvo(id_pokemon, id_ev.replace("#", '').replace(
     #     "use ", ""), tipo_ev.replace("use ", ""))

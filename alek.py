@@ -1,28 +1,44 @@
-import requests
-from bs4 import BeautifulSoup
+lista_tipos = ['Normal',
+               'Fire',
+               'Water',
+               'Electric',
+               'Grass',
+               'Ice',
+               'Fighting',
+               'Poison',
+               'Ground',
+               'Flying',
+               'Psychic',
+               'Bug',
+               'Rock',
+               'Ghost',
+               'Dragon',
+               'Dark',
+               'Steel',
+               'Fairy']
 
-lista = []
-page = requests.get("https://deetlist.com/dragoncity/all-dragons/")
+tuplas = [('1', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
+          ('2', 1, 0.5, 2, 1, 0.5, 0.5, 1, 1, 2, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 0.5),
+          ('3', 1, 0.5, 0.5, 2, 2, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 1),
+          ('4', 1, 1, 1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 0.5, 1),
+          ('5', 1, 2, 0.5, 0.5, 0.5, 2, 1, 2, 0.5, 2, 1, 2, 1, 1, 1, 1, 1, 1),
+          ('6', 1, 2, 1, 1, 1, 0.5, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1),
+          ('7', 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 0.5, 1, 1, 0.5, 1, 2),
+          ('8', 1, 1, 1, 1, 0.5, 1, 0.5, 0.5, 2, 1, 2, 0.5, 1, 1, 1, 1, 1, 0.5),
+          ('9', 1, 1, 2, 0, 2, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 1, 1, 1, 1, 1),
+          ('10', 1, 1, 1, 2, 0.5, 2, 0.5, 1, 0, 1, 1, 0.5, 2, 1, 1, 1, 1, 1),
+          ('11', 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 2, 1, 2, 1, 2, 1, 1),
+          ('12', 1, 2, 1, 1, 0.5, 1, 0.5, 1, 0.5, 2, 1, 1, 2, 1, 1, 1, 1, 1),
+          ('13', 0.5, 0.5, 2, 1, 2, 1, 2, 0.5, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 1),
+          ('14', 0, 1, 1, 1, 1, 1, 0, 0.5, 1, 1, 1, 0.5, 1, 2, 1, 2, 1, 1),
+          ('15', 1, 0.5, 0.5, 0.5, 0.5, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2),
+          ('16', 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0, 2, 1, 0.5, 1, 0.5, 1, 2),
+          ('17', 0.5, 2, 1, 1, 0.5, 0.5, 2, 0, 2,
+           0.5, 0.5, 0.5, 0.5, 1, 0.5, 1, 0.5, 0.5),
+          ('18', 1, 1, 1, 1, 1, 1, 0.5, 2, 1, 1, 1, 0.5, 1, 1, 0, 0.5, 2, 1),
 
-soup = BeautifulSoup(page.content, "html.parser")
+          ]
 
-resposta = soup.find_all("div", attrs={"class": "drag"})
-
-for resp in resposta:
-    lista.append(resp.text)
-
-for nome in lista:
-
-    page2 = requests.get(
-        f'https://deetlist.com/dragoncity/dragon/{nome.replace(" Dragon", "")}')
-
-    soup2 = BeautifulSoup(page2.content, "html.parser")
-
-    print(nome)
-    bolds = soup2.find("div", id="self_bio")
-    bolds = bolds.find_all("b")
-    print(bolds)
-    raridade = bolds[0].text
-    tipo = bolds[1].text
-
-    print(f'{nome} {raridade} {tipo}')
+for i in range(len(tuplas)):
+    paiar = int(tuplas[i][0])
+    print(f"('{lista_tipos[paiar-1]}', {tuplas[i][1]}, {tuplas[i][2]}, {tuplas[i][3]}, {tuplas[i][4]}, {tuplas[i][5]}, {tuplas[i][6]}, {tuplas[i][7]}, {tuplas[i][8]}, {tuplas[i][9]}, {tuplas[i][10]}, {tuplas[i][11]}, {tuplas[i][12]}, {tuplas[i][13]}, {tuplas[i][14]}, {tuplas[i][15]}, {tuplas[i][16]}, {tuplas[i][17]}, {tuplas[i][18]}),")

@@ -1,2 +1,2 @@
-# pokedb
-Puxando dados com Selenium da PokémonDB
+# Projeto de Banco de Dados: PokeDB
+Esse aplicativo foi um trabalho de **Banco de Dados I** **(S3)** onde basicamente pedia a criação de um banco de dados temático ao seu gosto no longo do semestre, com a criação das **tabelas**, **inserts** e **triggers** do banco. O Scrapping para os dados dos Pokémons foi em **Python**, utilizando *BS4* e *Selenium*. Já o banco foi codificado inteiramente em **PostgreSQL** e sua as **funções**/**triggers** em sua *Procedural Language (PL)*.

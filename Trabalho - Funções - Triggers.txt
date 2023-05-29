@@ -1,0 +1,38 @@
+Questões - Funções e Triggers
+
+1. Calcular a Efetividade.
+
+Funcao(id1,id2,ataque).
+Descrição: Calcular o dano do ataque do pokémon de id1 no pokemon de id2.
+Restrição: Mostrar os efeitos (vivos, morto, queimada, envenenado).
+
+2. Capturar Pokémon => habilidades, ataques, natureza, status, IV, item, efeito_status.
+
+Funcao(numero,local,lv).
+Descrição: atribuir ao pokémon capturado as suas habilidades, ataques, natureza, status, iv, item.
+Restição: o nível influencia os ataques. O iv influencia os status. A natureza influencia os status.
+
+3. Fazer troca de Pokémon. Jogar fora o Pokémon.
+
+Funcao(treinador1,treinador2,pokemon1,pokemon2).
+Descrição: treinador1 deseja trocar o pokemon1 com o pokemon2 do treinador2.
+Restrição: os pokémon podem evoluir se tiver com item (dependendo do item).
+Restrição: os pokémon podem não evoluir ser tiver com um item (evolite).
+
+4. Curar os Pokémon no Pokémon Center.
+
+5. Treinar EV/IV.
+
+6. Adicionar EXP/Evoluir Pokémon.
+
+Restrição: adicionar exp, adicionar doce raro, adicionar item de evolução.
+
+7. Adicionar Insígnia.
+
+Restrição: ganha insígnia se não tiver.
+
+8. Adicionar HM/TM.
+
+9. Cruzar os Pokémon.
+
+10. Construir e movimentar a Box.
